@@ -1,0 +1,48 @@
+importar  psutil
+ plataforma de importación
+importar  sistema operativo
+ plataforma de importación
+
+def  obtener_informacion_cpu ():
+    # Uso de la CPU
+    uso_cpu  =  psutil . cpu_percent ( intervalo = 1 )
+
+    # Frecuencia de la CPU
+    frecuencia_cpu  =  psutil . frecuencia_cpu ()
+
+    print ( f"Uso del CPU: { uso_cpu } %" )
+    print ( f"Frecuencia del CPU: { frecuencia_cpu . current } MHz" )
+
+def  obtener_informacion_memoria ():
+    # Uso de la memoria
+    uso_memoria  =  psutil . memoria virtual ()
+
+    print ( f"Uso de la memoria: { uso_memoria . percent } %" )
+
+def  obtener_informacion_red ():
+    # Estadisticas de rojo
+    estadisticas_red  =  psutil . contadores_net_io ()
+
+    print ( f"Bytes enviados: { estadisticas_red . bytes_sent } " )
+    print ( f"Bytes recibidos: { estadisticas_red . bytes_recv } " )
+
+def  obtener_temperatura_cpu ():
+    sistema  =  plataforma . sistema ()
+
+    si  sistema  ==  "Windows" :
+        # Comando para obtener la temperatura en Windows
+        temperatura  =  os . popen ( "wmic /namespace: \\ \\ root \\ cimv2 ruta Win32_TemperatureProbe obtener CurrentTemperature" ). leer ()
+        print ( f"Temperatura del CPU: { temperatura . strip () } grados Celsius" )
+    elif  sistema  ==  "Linux"  o  sistema  ==  "Darwin" :
+        # Comando para obtener la temperatura en sistemas basados ​​en Unix
+        temperatura  =  os . popen ( "sensores | grep 'Core 0'" ). leer ()
+        print ( f"Temperatura del CPU: { temperatura . strip () } " )
+
+definición  principal ():
+    obtener_informacion_cpu ()
+    obtener_informacion_memoria ()
+    obtener_informacion_red ()
+    obtener_temperatura_cpu ()
+
+si  __nombre__  ==  "__principal__" :
+    principal ()
